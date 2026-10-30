@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software or its content, please cite it as below."
+title: "AI-Aware WISP Builder"
+version: 0.1.2
+date-released: 2026-10-29
+license: MIT
+authors:
+  - family-names: Raza
+    given-names: Aamir
+# Add after the Zenodo release:
+# doi: 10.5281/zenodo.XXXXXXX
+repository-code: "https://github.com/amrhawk/ai-aware-wisp-builder"
+abstract: "A browser-only questionnaire that generates an AI addendum to a tax or accounting firm's written information security plan (WISP) and a gap report, mapped to the FTC Safeguards Rule, IRC Section 7216, and IRS OPR Issue 2026-19."
+keywords: [WISP, Safeguards Rule, tax, accounting, artificial intelligence, Section 7216]

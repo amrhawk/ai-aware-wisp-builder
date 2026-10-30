@@ -1,0 +1,17 @@
+{
+  "name": "ai-aware-wisp-builder",
+  "version": "0.1.2",
+  "description": "Browser-only questionnaire that generates an AI addendum to a tax or accounting firm's WISP and a gap report.",
+  "license": "MIT",
+  "private": false,
+  "bin": { "wisp-builder": "bin/wisp-builder.js" },
+  "scripts": {
+    "test": "node --test tests/engine.test.js",
+    "build": "node scripts/build-docs.js",
+    "sample": "node bin/wisp-builder.js --answers examples/sample-answers-5-person-firm.json --out examples",
+    "site": "node scripts/build-site.js",
+    "check": "node scripts/check-placeholders.js"
+  },
+  "engines": { "node": ">=18" },
+  "keywords": ["WISP", "Safeguards Rule", "tax", "accounting", "AI", "security", "Section 7216"]
+}

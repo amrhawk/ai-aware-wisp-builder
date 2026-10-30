@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Privacy: this Content-Security-Policy blocks every network and resource load except this site's own files.
+     Scripts, styles and images may come only from the page's own files (images also from data: URLs);
+     fetch/XHR/WebSocket connections, forms, fonts, media, frames, objects and workers are blocked. See docs/PRIVACY.md. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-Aware WISP Builder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<noscript><p style="padding:16px;font:16px system-ui">This tool needs JavaScript. It runs entirely in your browser and sends nothing anywhere.</p></noscript>
+<header>
+  <h1>AI-Aware WISP Builder <span class="ver">v0.1.2</span></h1>
+  <p>Answer the questionnaire to generate an AI addendum to your firm's written information security plan and a gap report. <strong>Everything runs in your browser; your answers are never uploaded and nothing is stored.</strong> Download your answers to continue later.</p>
+  <p class="warn">Guidance only, not legal advice. Do not enter client data. Confirm requirements with your own advisors.</p>
+</header>
+
+<main>
+  <section id="profile" class="card">
+    <h2>Firm profile</h2>
+    <div class="grid">
+      <label>Firm name <input id="firmName" type="text" autocomplete="off"></label>
+      <label>Qualified Individual <input id="qi" type="text" autocomplete="off"></label>
+      <label>Number of people at the firm <input id="headcount" type="number" min="1" value="1"></label>
+      <label>Customer information held on
+        <select id="consumers">
+          <option value="unknown">I don't know (all controls scored)</option>
+          <option value="lt5000">Fewer than 5,000 consumers</option>
+          <option value="gte5000">5,000 or more consumers</option>
+        </select>
+      </label>
+      <label>Date <input id="date" type="date"></label>
+    </div>
+    <p class="hint">Under 16 CFR 314.6, firms with fewer than 5,000 consumers are exempt from 314.4(b)(1), (d)(2), (h), and (i). Related questions become advisory and are not scored.</p>
+    <div class="actions">
+      <button id="loadSample" type="button" class="secondary">Load fictional sample firm</button>
+      <label class="filebtn secondary">Load saved answers<input id="loadFile" type="file" accept="application/json"></label>
+      <button id="saveAnswers" type="button" class="secondary">Download answers (.json)</button>
+    </div>
+  </section>
+
+  <div class="progress" aria-live="polite"><div id="bar"></div><span id="progressText"></span></div>
+  <div id="questions"></div>
+
+  <div class="actions sticky">
+    <button id="generate" type="button">Generate addendum and gap report</button>
+  </div>
+
+  <section id="output" class="card" hidden>
+    <div class="tabs" role="tablist">
+      <button id="tabReport" role="tab" aria-selected="true" type="button">Gap report</button>
+      <button id="tabAddendum" role="tab" aria-selected="false" type="button">Addendum</button>
+    </div>
+    <div class="actions">
+      <button id="dl" type="button" class="secondary">Download this document (.md)</button>
+      <button id="print" type="button" class="secondary">Print or save as PDF</button>
+    </div>
+    <article id="doc"></article>
+  </section>
+</main>
+<footer>Code MIT. Text CC BY 4.0. See the repository README for methodology and limitations.</footer>
+
+<script src="../src/questions.js"></script>
+<script src="../src/templates.js"></script>
+<script src="../src/engine.js"></script>
+<script src="sample.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

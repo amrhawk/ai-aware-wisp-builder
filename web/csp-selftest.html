@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Same policy as index.html. This page tries to contact an address that can never resolve (example.invalid)
+     and reports whether YOUR browser blocked each attempt by policy. Nothing is sent anywhere. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>AI-Aware WISP Builder: browser privacy self-test</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Browser privacy self-test</h1>
+  <p>This page checks that <strong>your browser</strong> enforces the privacy policy used by the AI-Aware WISP Builder. It tries to load things from a fake outside address (<code>example.invalid</code>, which cannot exist) and reports whether the browser stopped each attempt by policy. Nothing is sent anywhere.</p>
+</header>
+<main>
+  <section class="card">
+    <p id="status" aria-live="polite">Running...</p>
+    <article><table><thead><tr><th>Attempt</th><th>Result</th></tr></thead><tbody id="rows"></tbody></table></article>
+    <p class="hint" id="ua"></p>
+    <p class="hint">PASS means the browser reported a policy block. FAIL or NO REPORT means this browser did not enforce the policy for that attempt; do not rely on the privacy claim in that browser. Use a current Chrome, Edge, Firefox, or Safari.</p>
+  </section>
+</main>
+<script src="csp-selftest.js"></script>
+</body>
+</html>
