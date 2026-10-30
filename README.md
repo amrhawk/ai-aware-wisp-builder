@@ -68,7 +68,7 @@ v0.1.x is an early release. It has not been validated in a large study.
 
 ## Cite
 
-See `CITATION.cff`. Suggested: Raza, A. (2026). *AI-Aware WISP Builder*, version 0.1.2. https://github.com/amrhawk/ai-aware-wisp-builder (add DOI after the Zenodo release).
+See `CITATION.cff`. Suggested: Raza, A. (2026). *AI-Aware WISP Builder*, version 0.1.2. https://github.com/amrhawk/ai-aware-wisp-builder .
 
 ## License
 
@@ -80,8 +80,8 @@ To report a vulnerability privately, see `SECURITY.md`.
 
 ## Before you publish this repository
 
-See `docs/RELEASE_CHECKLIST.md` (fill placeholders, enable GitHub Pages, Zenodo DOI, employer and IP check).
+See `docs/RELEASE_CHECKLIST.md` .
 
 ## Author
 
-Aamir Raza, MS, Cybersecurity and Forensics. Contact: Araza7@hawk.iit.edu. This is an independent, non-commercial project; it does not contain or represent any employer's or client's data, policies, or incidents.
+Aamir Raza, MS, Cyberforensics and security . Contact: araza7@hawk.iit.edu. This is an independent, non-commercial project; it does not contain or represent any employer's or client's data, policies, or incidents.
