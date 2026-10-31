@@ -3,6 +3,7 @@
 ## 0.1.2 (2026-10-29)
 - Loading an answers file saved by 0.1.0 (no version stamp) now migrates it automatically: the old T7216-4 answer moves to T7216-5, the new SSN question T7216-4 is left unanswered and highlighted, and T7216-3 (reworded) is flagged for review. The command line has `--migrate` and applies the same migration when generating documents.
 - Accessibility: each answer group is now labeled by its question text (not just the ID) for screen readers, and the question's citation and severity are attached as its description.
+- Fixed: the placeholder-helper test no longer depends on whether the repository's own placeholders have been filled in (it failed with `0 !== 1` once they were).
 - Added `SECURITY.md` (private vulnerability reporting) and a release-checklist step to enable it.
 
 ## 0.1.1 (2026-10-28)

@@ -179,19 +179,31 @@ test("GitHub Pages build rewrites paths and works as a single folder", () => {
   assert.ok(html.includes("default-src 'none'"));
 });
 
-test("placeholder helpers: set-placeholders fills a copy, check-placeholders detects and then passes", () => {
+test("placeholder helpers: set-placeholders fills fixture files, check-placeholders detects and then passes", () => {
+  // Uses its own fixture project, so the result does not depend on whether the real repository
+  // has already had its placeholders filled in.
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "wisp-"));
-  const copy = path.join(tmp, "repo");
-  fs.cpSync(root, copy, { recursive: true, filter: s => !/node_modules|[\\/]site$|[\\/]site[\\/]/.test(s) });
-  const run = (script, args) => { try { return { code: 0, out: execFileSync(process.execPath, [path.join(copy, "scripts", script), ...args], { stdio: "pipe" }).toString() }; } catch (e) { return { code: e.status, out: (e.stderr || "").toString() }; } };
-  assert.strictEqual(run("check-placeholders.js", []).code, 1);
+  const proj = path.join(tmp, "proj");
+  fs.mkdirSync(path.join(proj, "scripts"), { recursive: true });
+  fs.mkdirSync(path.join(proj, ".github", "workflows"), { recursive: true });
+  fs.mkdirSync(path.join(proj, "docs"), { recursive: true });
+  ["set-placeholders.js", "check-placeholders.js"].forEach(f => fs.copyFileSync(path.join(root, "scripts", f), path.join(proj, "scripts", f)));
+  fs.writeFileSync(path.join(proj, "README.md"), "Use it: https://YOUR-USERNAME.github.io/ai-aware-wisp-builder/\nContact: [email]\nCite: https://github.com/YOUR-USERNAME/ai-aware-wisp-builder (add DOI after the Zenodo release)\n");
+  fs.writeFileSync(path.join(proj, "SECURITY.md"), "Email [email]\n");
+  fs.writeFileSync(path.join(proj, "CITATION.cff"), "title: x\n# doi: 10.5281/zenodo.XXXXXXX\n# repository-code: \"https://github.com/YOUR-USERNAME/ai-aware-wisp-builder\"\n");
+  fs.writeFileSync(path.join(proj, ".github", "workflows", "pages.yml"), "#   https://YOUR-USERNAME.github.io/ai-aware-wisp-builder/\n");
+  fs.writeFileSync(path.join(proj, "docs", "RELEASE_CHECKLIST.md"), "https://YOUR-USERNAME.github.io/x\n");
+  const run = (script, args) => { try { return { code: 0, out: execFileSync(process.execPath, [path.join(proj, "scripts", script), ...args], { stdio: "pipe" }).toString() }; } catch (e) { return { code: e.status, out: (e.stderr || "").toString() }; } };
+  assert.strictEqual(run("check-placeholders.js", []).code, 1, "fixture has placeholders, so the check must fail");
   assert.strictEqual(run("set-placeholders.js", ["--username", "bad name", "--email", "a@b.co"]).code, 2);
   assert.strictEqual(run("set-placeholders.js", ["--username", "octo-cat", "--email", "not-an-email"]).code, 2);
   assert.strictEqual(run("set-placeholders.js", ["--username", "octo-cat", "--email", "me@example.org", "--doi", "10.5281/zenodo.1234567"]).code, 0);
   assert.strictEqual(run("check-placeholders.js", []).code, 0);
-  const readme = fs.readFileSync(path.join(copy, "README.md"), "utf8");
+  const readme = fs.readFileSync(path.join(proj, "README.md"), "utf8");
   assert.ok(readme.includes("https://octo-cat.github.io/ai-aware-wisp-builder/") && readme.includes("me@example.org"));
-  assert.ok(fs.readFileSync(path.join(copy, "CITATION.cff"), "utf8").includes("doi: 10.5281/zenodo.1234567"));
+  assert.ok(fs.readFileSync(path.join(proj, "SECURITY.md"), "utf8").includes("me@example.org"));
+  const cff = fs.readFileSync(path.join(proj, "CITATION.cff"), "utf8");
+  assert.ok(cff.includes("doi: 10.5281/zenodo.1234567") && /^repository-code: "https:\/\/github\.com\/octo-cat\//m.test(cff));
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 

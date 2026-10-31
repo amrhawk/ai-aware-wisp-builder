@@ -68,7 +68,11 @@ v0.1.x is an early release. It has not been validated in a large study.
 
 ## Cite
 
+<<<<<<< HEAD
 See `CITATION.cff`. Suggested: Raza, A. (2026). *AI-Aware WISP Builder*, version 0.1.2. https://github.com/amrhawk/ai-aware-wisp-builder .
+=======
+See `CITATION.cff`. Suggested: Raza, A. (2026). *AI-Aware WISP Builder*, version 0.1.2. https://github.com/amrhawk/ai-aware-wisp-builder https://doi.org/10.5281/zenodo.NNNNNNN.
+>>>>>>> 5075fe8 (Fix placeholder test; stop tracking zip)
 
 ## License
 
